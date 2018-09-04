@@ -1,4 +1,4 @@
-package com.tuts.prakash.simpleocr;
+package com.bekdik.textrec;
 
 import org.junit.Test;
 

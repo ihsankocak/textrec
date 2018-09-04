@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="5"
-    tools:context="com.tuts.prakash.simpleocr.MainActivity">
+    tools:context="com.bekdik.textrec.MainActivity">
 
     <SurfaceView
         android:id="@+id/surfaceView"
