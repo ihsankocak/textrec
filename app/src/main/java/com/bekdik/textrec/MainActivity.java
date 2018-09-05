@@ -8,9 +8,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bekdik.textrec.util.Util;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
@@ -19,22 +28,29 @@ import com.google.android.gms.vision.text.TextRecognizer;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
-
+    ListView listView;
+    String contextMenu[]={"Context"};
     SurfaceView mCameraView;
     TextView mTextView;
     CameraSource mCameraSource;
 
     private static final String TAG = "MainActivity";
     private static final int requestPermissionID = 101;
-
+private Util util=new Util(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
 
         mCameraView = findViewById(R.id.surfaceView);
         mTextView = findViewById(R.id.text_view);
-
+        listView=(ListView)findViewById(R.id.listView);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,contextMenu);
+        listView.setAdapter(adapter);
+        // Register the ListView  for Context menu
+        registerForContextMenu(listView);
         startCameraSource();
     }
 
@@ -139,5 +155,30 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        menu.setHeaderTitle("Select The Action");
+    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        if(item.getItemId()==R.id.clipboard){
+            util.copy2Clipboard(mTextView.getText().toString());
+            Toast.makeText(getApplicationContext(),"copied to clipboard",Toast.LENGTH_LONG).show();
+        }
+        else if(item.getItemId()==R.id.whatsapp){
+            Toast.makeText(getApplicationContext(),"sending sms code",Toast.LENGTH_LONG).show();
+        }
+        else if(item.getItemId()==R.id.mail){
+            Toast.makeText(getApplicationContext(),"sending sms code",Toast.LENGTH_LONG).show();
+        }
+        else{
+            return false;
+        }
+        return true;
     }
 }
