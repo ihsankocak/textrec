@@ -11,6 +11,7 @@ import android.util.SparseArray;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -41,12 +42,10 @@ private Util util=new Util(this);
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_main);
-
         mCameraView = findViewById(R.id.surfaceView);
         mTextView = findViewById(R.id.text_view);
-        listView=(ListView)findViewById(R.id.listView);
+        listView=findViewById(R.id.listView);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,contextMenu);
         listView.setAdapter(adapter);
         // Register the ListView  for Context menu
@@ -90,6 +89,7 @@ private Util util=new Util(this);
                     .setAutoFocusEnabled(true)
                     .setRequestedFps(2.0f)
                     .build();
+
 
             /**
              * Add call back to SurfaceView and check if camera permission is granted.
