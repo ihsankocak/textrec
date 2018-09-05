@@ -171,10 +171,11 @@ private Util util=new Util(this);
             Toast.makeText(getApplicationContext(),"copied to clipboard",Toast.LENGTH_LONG).show();
         }
         else if(item.getItemId()==R.id.whatsapp){
-            Toast.makeText(getApplicationContext(),"sending sms code",Toast.LENGTH_LONG).show();
+           util.send2Whatsapp(mTextView.getText().toString());
         }
         else if(item.getItemId()==R.id.mail){
-            Toast.makeText(getApplicationContext(),"sending sms code",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Mail menu is being retrieved",Toast.LENGTH_LONG).show();
+            util.sendAsEmail(mTextView.getText().toString());
         }
         else{
             return false;
